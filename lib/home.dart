@@ -141,3 +141,32 @@ class _ImagenState extends State<Home> {
       },
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Aplicación de Cámara Flutter'),
+      ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    opciones(context); // Llama al método para mostrar las opciones
+                  },
+                  child: Text('Seleccione una imagen'),
+                ),
+                SizedBox(height: 30),
+                imagen == null ? Center() : Image.file(imagen!) // Muestra la imagen seleccionada
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
