@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,3 +23,17 @@ class _ImagenState extends State<Home> {
       _saveImage(pickedFile.path, fromCamera); // Guarda la imagen y muestra la alerta si proviene de la cámara
     }
   }
+
+  // Método para seleccionar una imagen de la galería
+  Future _selectImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        imagen = File(pickedFile.path); // Establece la imagen seleccionada
+        fromCamera = false; // Indica que la imagen proviene de la galería
+      });
+      _saveImage(pickedFile.path, fromCamera); // Guarda la imagen y muestra la alerta si proviene de la cámara
+    }
+  }
+  
