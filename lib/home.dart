@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Home extends StatefulWidget {
@@ -36,4 +37,27 @@ class _ImagenState extends State<Home> {
       _saveImage(pickedFile.path, fromCamera); // Guarda la imagen y muestra la alerta si proviene de la cámara
     }
   }
-  
+
+  // Método para guardar la imagen y mostrar una alerta de que ha sido guardada en la galería
+  Future<void> _saveImage(String imagePath, bool fromCamera) async {
+    final result = await ImageGallerySaver.saveFile(imagePath);
+    if (result != null && result['isSuccess'] && fromCamera) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Foto guardada'),
+            content: Text('La foto se ha guardado en la galería.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
