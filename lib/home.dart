@@ -23,6 +23,23 @@ class _ImagenState extends State<Home> {
     status = await Permission.camera.request();
     if (!status.isGranted) {
       // El usuario rechazó el permiso, puedes mostrar un mensaje o realizar alguna acción aquí.
+       showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Permiso denegado'),
+            content: Text('No se puede acceder a la cámara sin permiso.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
   }
