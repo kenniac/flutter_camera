@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,6 +16,17 @@ class _ImagenState extends State<Home> {
 
   // Método para tomar una foto con la cámara
   Future _takePicture() async {
+    // Verificar si se tiene permiso de cámara
+  var status = await Permission.camera.status;
+  if (!status.isGranted) {
+    // Si no se tiene permiso, solicitarlo
+    status = await Permission.camera.request();
+    if (!status.isGranted) {
+      // El usuario rechazó el permiso, puedes mostrar un mensaje o realizar alguna acción aquí.
+      return;
+    }
+  }
+
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
