@@ -22,7 +22,7 @@ class _ImagenState extends State<Home> {
     // Si no se tiene permiso, solicitarlo
     status = await Permission.camera.request();
     if (!status.isGranted) {
-      // El usuario rechazó el permiso, puedes mostrar un mensaje o realizar alguna acción aquí.
+      // El usuario rechazó el permiso
        showDialog(
         context: context,
         builder: (BuildContext context) {
